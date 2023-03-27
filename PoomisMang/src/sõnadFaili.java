@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 
@@ -23,8 +24,10 @@ public class sõnadFaili {
 
         while (scanner.hasNextLine()) {
             String rida = scanner.nextLine();
-            if (rida.length() == 4 && !rida.contains(".") && !rida.contains("!") && !rida.contains("š") && !rida.contains("ž") ){
-                K_sõnad.add(rida);
+            if (rida.length() == 4 || rida.length() == 3 || rida.length() == 5 && !rida.contains(".") && !rida.contains("!") && !rida.contains("š") && !rida.contains("ž")) {
+                if (!rida.contains(".") && !rida.contains("!") && !rida.contains("š") && !rida.contains("ž") && !rida.contains("-")) {
+                    K_sõnad.add(rida);
+                }
             }
         }
         return K_sõnad;
@@ -43,6 +46,20 @@ public class sõnadFaili {
         }
         myWriter.close();
     }
+
+    public static List<String> sonadMassiivi(String failinimi) throws IOException {
+        List<String> koikSõnad = new ArrayList<>();
+
+        File fail = new File (failinimi);
+        Scanner scanner = new Scanner(fail, UTF_8);
+
+        while (scanner.hasNextLine()) {
+            String rida = scanner.nextLine();
+            koikSõnad.add(rida);
+        }
+        return koikSõnad;
+    }
+
 
     public static void main(String[] args) throws IOException {
         String uusFailinimi = "K_sõnad";

@@ -41,7 +41,7 @@ public class numbriArvamine {
         Scanner mängijaArvab = new Scanner(System.in);
         while ( mängijaArvamusInt != numberArvamiseks) {
             System.out.println("Palun sisesta number!");
-            String mängijaArvamus = mängijaArvab.nextLine();// Mängija sisestab
+            String mängijaArvamus = mängijaArvab.nextLine();// Mängija sisestab oma pakkumise
             mängijaArvamusInt = Integer.parseInt(mängijaArvamus);
 
             if (mängijaArvamusInt < numberArvamiseks) {

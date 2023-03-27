@@ -69,4 +69,9 @@ public class sõnaArvamine {
 
      */
 
+
+    /*
+    TODO
+        - Ei anna kasutajale valida, et kui pikka sõna ta valima hakkab, vaid valime ise talle sõna, mis on
+     */
 }
