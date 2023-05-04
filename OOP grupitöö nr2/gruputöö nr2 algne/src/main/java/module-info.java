@@ -4,6 +4,6 @@ module com.example.graafilinekatse {
     requires java.desktop;
 
 
-    opens com.example.graafilinekatse to javafx.fxml;
-    exports com.example.graafilinekatse;
+    opens com.example.PoomismängGraafika to javafx.fxml;
+    exports com.example.PoomismängGraafika;
 }
