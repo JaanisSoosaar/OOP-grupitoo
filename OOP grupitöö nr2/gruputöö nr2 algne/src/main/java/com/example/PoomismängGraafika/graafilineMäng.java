@@ -1,5 +1,6 @@
 package com.example.PoomismängGraafika;
 
+import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -18,6 +19,7 @@ import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,6 +38,10 @@ public class graafilineMäng extends Application {
 
     private TextField arvatudTähedField = new TextField();
 
+    private TextField tagasiside = new TextField();
+
+    private FadeTransition tagasisideNäitamine;
+
     private Label arvamisiAllesLabel;
 
     private int arvamisiAlles;
@@ -51,6 +57,8 @@ public class graafilineMäng extends Application {
     private ArrayList<Shape> poomisPuuList;
 
     private int indeks = 0;
+
+
 
 
     @Override
@@ -95,8 +103,8 @@ public class graafilineMäng extends Application {
         button2.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #9b9d9e 0%, #7a7c7d 100%),#7a7c7d,#9b9d9e, radial-gradient(center 50% 50%, radius 100%, #7a7c7d, #9b9d9e); -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); -fx-font-weight: bold; -fx-font-size: 1.3em;");
 
 
-        stackPane2.setMargin(button2, new Insets(50, 50, 50, 50));
-        stackPane2.setAlignment(button2, Pos.BOTTOM_CENTER);
+        StackPane.setMargin(button2, new Insets(50, 50, 50, 50));
+        StackPane.setAlignment(button2, Pos.BOTTOM_CENTER);
 
         ObservableList<javafx.scene.Node> list = stackPane2.getChildren();
 
@@ -133,6 +141,19 @@ public class graafilineMäng extends Application {
         // Sätin paika arvamise korrad, enne kui kaotatakse
         arvamisiAlles = 10;
 
+        // Sätin paika tagasiside textfieldi
+        tagasiside.setFont(new Font(20));
+        tagasiside.setPrefWidth(400);
+        tagasiside.setAlignment(Pos.CENTER);
+        tagasiside.setEditable(false);
+        tagasiside.setVisible(true);
+        borderPane.setTop(tagasiside);
+
+        // Sätin paika tagasiside näitamise
+        //tagasisideNäitamine = new FadeTransition(Duration.millis(4000), tagasiside);  // luuakse uus haihtumine
+        //tagasisideNäitamine.setFromValue(1.0);  // määratakse algväärtus (1.0 - täiesti selge)
+        //tagasisideNäitamine.setToValue(1.0); // määratakse lõppväärtus (0 - täiesti haihtunud)
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Parempoolne osa.
         GridPane paremPoolsedAsjad = new GridPane();
@@ -152,7 +173,7 @@ public class graafilineMäng extends Application {
 
         borderPane.setBottom(sõnaJooned);
         //borderPane.setAlignment(sõnaJooned, Pos.CENTER);
-        borderPane.setMargin(sõnaJooned, new Insets(12, 12, 100, 12));
+        BorderPane.setMargin(sõnaJooned, new Insets(12, 12, 100, 12));
 
         borderPane.setCenter(poomisPuu);
 
@@ -303,10 +324,14 @@ public class graafilineMäng extends Application {
         System.out.println("jõudsin siia!!!");
 
         String pakkumineString = täheSisestusField.getText();
-
+        täheSisestusField.setText("");
         // Kontrollin, kas mängija sisestas ainult ühe tähe.
         if (pakkumineString.length() > 1) {
             System.out.println("Palun paku ainult ÜKS täht!");
+
+            tagasiside.setText("Palun paku ainult ÜKS täht!");
+            //tagasisideNäitamine.play();
+
             return;
         }
 
@@ -322,13 +347,21 @@ public class graafilineMäng extends Application {
 
         // Kontrollin, kas mängija pakkumine esineb otsitavas sõnas.
         if (ArvatavSõna.indexOf(pakkumine) != -1) { // Esineb otsitavas sõnas.
-            System.out.println("Tubli! Pakutud täht: " + pakkumine + " esines otsitavas sõnas!");
+            //System.out.println("Tubli! Pakutud täht: " + pakkumine + " esines otsitavas sõnas!");
             //TODO: Kirjuta ekraanile sama asi.
+
+            tagasiside.setText("Tubli! Pakutud täht: " + pakkumine + " esines otsitavas sõnas!");
+            //tagasisideNäitamine.play();
+
             //arvamisiAlles--;
             arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
         } else { // Ei esine otsitavas sõnas.
             System.out.println("Pakutud täht ei esinenud otsitavas sõnas.");
             //TODO: Kirjuta ekraanile sama asi.
+
+            tagasiside.setText("Pakutud täht " + pakkumine + " ei esinenud otsitavas sõnas.");
+            //tagasisideNäitamine.play();
+
             poomisPuuList.get(indeks).setVisible(true);
             indeks++;
             arvamisiAlles--;
