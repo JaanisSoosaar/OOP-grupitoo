@@ -69,18 +69,27 @@ public class graafilineMäng extends Application {
 
         avalehtStseen = new Scene(stackPane1, 1000, 650);
 
-        Label label1 = new Label("Esimene stseen");
+        //Label label1 = new Label("Esimene stseen");
 
         Button button1 = new Button("Alusta mänguga!");
         button1.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #9b9d9e 0%, #7a7c7d 100%),#7a7c7d,#9b9d9e, radial-gradient(center 50% 50%, radius 100%, #7a7c7d, #9b9d9e); -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); -fx-font-weight: bold; -fx-font-size: 1.3em;");
         button1.setOnAction(e -> peaLava.setScene(mängStseen));
 
+       /* Button button3 = new Button("Vaata logifaile");
+        button3.setStyle("-fx-padding: 8 15 15 15; -fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0; -fx-background-radius: 8; -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #9b9d9e 0%, #7a7c7d 100%),#7a7c7d,#9b9d9e, radial-gradient(center 50% 50%, radius 100%, #7a7c7d, #9b9d9e); -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 ); -fx-font-weight: bold; -fx-font-size: 1.3em;");
+        button3.setOnAction(e -> peaLava.setScene(mängStseen));
+*/
         StackPane.setAlignment(button1, Pos.BOTTOM_CENTER);
         StackPane.setMargin(button1, new Insets(25, 25, 50, 25));
 
+/*
+        StackPane.setAlignment(button3, Pos.BOTTOM_RIGHT);
+        StackPane.setMargin(button3, new Insets(25, 25, 50, 25));
+*/
+
         ObservableList<javafx.scene.Node> list1 = stackPane1.getChildren();
 
-        list1.addAll(label1, button1);
+        list1.addAll(button1);
 
 
         stackPane1.setBackground(Taust1());
@@ -92,11 +101,7 @@ public class graafilineMäng extends Application {
         BorderPane borderPane = new BorderPane();
         mängStseen = new Scene(borderPane, 1000, 650);
 
-
-        // Vasakpoolne osa
         StackPane stackPane2 = new StackPane();
-
-        Label label2 = new Label("Teine stseen");
 
         Button button2 = new Button("Mine esimesse stseeni");
         button2.setOnAction(e -> peaLava.setScene(avalehtStseen));
@@ -104,12 +109,11 @@ public class graafilineMäng extends Application {
 
 
         StackPane.setMargin(button2, new Insets(50, 50, 50, 50));
-        StackPane.setAlignment(button2, Pos.BOTTOM_CENTER);
+        StackPane.setAlignment(button2, Pos.TOP_LEFT);
 
         ObservableList<javafx.scene.Node> list = stackPane2.getChildren();
 
-        list.addAll(label2, button2);
-
+        list.add(button2);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Ettevalmistus / parempoolne osa.
@@ -144,15 +148,10 @@ public class graafilineMäng extends Application {
         // Sätin paika tagasiside textfieldi
         tagasiside.setFont(new Font(20));
         tagasiside.setPrefWidth(400);
-        tagasiside.setAlignment(Pos.CENTER);
+        tagasiside.setAlignment(Pos.TOP_CENTER);
         tagasiside.setEditable(false);
         tagasiside.setVisible(true);
         borderPane.setTop(tagasiside);
-
-        // Sätin paika tagasiside näitamise
-        //tagasisideNäitamine = new FadeTransition(Duration.millis(4000), tagasiside);  // luuakse uus haihtumine
-        //tagasisideNäitamine.setFromValue(1.0);  // määratakse algväärtus (1.0 - täiesti selge)
-        //tagasisideNäitamine.setToValue(1.0); // määratakse lõppväärtus (0 - täiesti haihtunud)
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Parempoolne osa.
@@ -171,13 +170,11 @@ public class graafilineMäng extends Application {
         borderPane.setRight(paremPoolsedAsjad);
         paremPoolsedAsjad.setAlignment(Pos.CENTER);
 
+        borderPane.setBottom(stackPane2);
         borderPane.setBottom(sõnaJooned);
-        //borderPane.setAlignment(sõnaJooned, Pos.CENTER);
         BorderPane.setMargin(sõnaJooned, new Insets(12, 12, 100, 12));
 
         borderPane.setCenter(poomisPuu);
-
-        //borderPane.setTop(stackPane2);
 
 
         // Kui sisestada täht, siis käivitan "poomismängu", kus kontrollin sisestust ja teen muud vajalikud toimingud.
@@ -279,7 +276,6 @@ public class graafilineMäng extends Application {
 
     public void arvamiseJooned(String sõna) {
         Line[] jooned = new Line[sõna.length()];
-        //double laius = mängStseen.getWidth();
         int joonePikkus = 25;
         int jooneVahe = 35;
         int xAlgus = (int) mängStseen.getWidth() / 2 - jooneVahe * (sõna.length() / 2);
@@ -288,18 +284,18 @@ public class graafilineMäng extends Application {
             // Arvutan iga joone alguspunkti.
             int xkoordinaat = xAlgus + (jooneVahe * i);
 
-            jooned[i] = new Line(xkoordinaat, 225, xkoordinaat - joonePikkus, 225);
+            jooned[i] = new Line(xkoordinaat, 230, xkoordinaat - joonePikkus, 230);
             jooned[i].setStroke(Color.BLACK);
             jooned[i].setStrokeWidth(3);
             arvamisJoonteChildren.add(jooned[i]);
         }
     }
 
-    //TODO: Peab näitama arvatud tähti joone peal. Seotud selle meetodiga.
     private Text[] paigutaTekst(String sõna) {
         pakutavSõna = new Text[sõna.length()];
         int jooneVahe = 35;
-        int xAlgus = (int) mängStseen.getWidth() / 2 - jooneVahe * (sõna.length() / 2);
+        int joonePikkus = 25;
+        int xAlgus = (int) mängStseen.getWidth() / 2 - jooneVahe * (sõna.length() / 2) - joonePikkus/2 - 10;
 
         for (int i = 0; i < pakutavSõna.length; i++) {
             // Arvutan iga joone alguspunkti.
@@ -327,10 +323,9 @@ public class graafilineMäng extends Application {
         täheSisestusField.setText("");
         // Kontrollin, kas mängija sisestas ainult ühe tähe.
         if (pakkumineString.length() > 1) {
-            System.out.println("Palun paku ainult ÜKS täht!");
 
+            System.out.println("Palun paku ainult ÜKS täht!");
             tagasiside.setText("Palun paku ainult ÜKS täht!");
-            //tagasisideNäitamine.play();
 
             return;
         }
@@ -340,36 +335,33 @@ public class graafilineMäng extends Application {
         // Kontrollin, kas on esimene legaalne pakkumine.
         if (arvatudTähedField.getText().equals("")) { // On esimene pakkumine.
             arvatudTähedField.setText(pakkumineString);
+
         } else { // Ei ole esimene pakkumine.
+
             String ajutine = arvatudTähedField.getText();
             arvatudTähedField.setText(ajutine + ", " + pakkumineString);
         }
 
         // Kontrollin, kas mängija pakkumine esineb otsitavas sõnas.
         if (ArvatavSõna.indexOf(pakkumine) != -1) { // Esineb otsitavas sõnas.
-            //System.out.println("Tubli! Pakutud täht: " + pakkumine + " esines otsitavas sõnas!");
-            //TODO: Kirjuta ekraanile sama asi.
 
             tagasiside.setText("Tubli! Pakutud täht: " + pakkumine + " esines otsitavas sõnas!");
-            //tagasisideNäitamine.play();
 
-            //arvamisiAlles--;
-            arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
         } else { // Ei esine otsitavas sõnas.
-            System.out.println("Pakutud täht ei esinenud otsitavas sõnas.");
-            //TODO: Kirjuta ekraanile sama asi.
 
             tagasiside.setText("Pakutud täht " + pakkumine + " ei esinenud otsitavas sõnas.");
-            //tagasisideNäitamine.play();
 
+            // Panen järgmise poomispuu osa nähtavaks.
             poomisPuuList.get(indeks).setVisible(true);
             indeks++;
             arvamisiAlles--;
             arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
+
             // Kui arvamised on otsa saanud, siis mäng on läbi!
             if (arvamisiAlles == 0) {
 
                 // TODO: Kaotasid!
+
                 System.out.println("\nTegid üle 10 vea. Oled kaotanud!");
                 System.out.println("Arvatav sõna oli: " + ArvatavSõna);
                 System.out.println("Järgmine kord läheb paremini!");
@@ -377,97 +369,82 @@ public class graafilineMäng extends Application {
             return;
         }
 
-        try { // kontrollin, millisel kohal sõnas esines mängija pakkumine ning seejärel vahetan pakutavas sõnas vastava tähe.
+        // Kontrollin, millisel kohal sõnas esines mängija pakkumine ning seejärel vahetan pakutavas sõnas vastava tähe.
+        try {
             if (ArvatavSõna.charAt(0) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakkumine + pakutav.substring(1);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[0] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[0].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[0]);
+
             }
             if (ArvatavSõna.charAt(1) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 1) + pakkumine + pakutav.substring(2);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[1] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[1].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[1]);
+
             }
             if (ArvatavSõna.charAt(2) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 2) + pakkumine + pakutav.substring(3);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[2] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[2].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[2]);
+
             }
             if (ArvatavSõna.charAt(3) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 3) + pakkumine + pakutav.substring(4);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[3] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[3].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[3]);
+
             }
             if (ArvatavSõna.charAt(4) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 4) + pakkumine + pakutav.substring(5);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[4] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[4].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[4]);
+
             }
             if (ArvatavSõna.charAt(5) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 5) + pakkumine + pakutav.substring(6);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[5] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[5].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[5]);
+
             }
             if (ArvatavSõna.charAt(6) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 6) + pakkumine + pakutav.substring(7);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[6] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[6].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[6]);
+
             }
             if (ArvatavSõna.charAt(7) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 7) + pakkumine + pakutav.substring(8);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[7] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[7].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[7]);
+
             }
             if (ArvatavSõna.charAt(8) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 8) + pakkumine + pakutav.substring(9);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[8] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[8].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[8]);
+
             }
             if (ArvatavSõna.charAt(9) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 9) + pakkumine + pakutav.substring(10);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[9] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[9].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[9]);
+
             }
             if (ArvatavSõna.charAt(10) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 10) + pakkumine + pakutav.substring(11);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[10] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[10].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[10]);
+
             }
             if (ArvatavSõna.charAt(11) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 11) + pakkumine + pakutav.substring(12);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[11] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[11].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[11]);
+
             }
             if (ArvatavSõna.charAt(12) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 12) + pakkumine + pakutav.substring(13);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[12] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[12].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[12]);
+
             }
             if (ArvatavSõna.charAt(13) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 13) + pakkumine + pakutav.substring(14);
-                pakutavSõna = new Text[]{new Text(uusSõna)};
-                pakutavSõna[13] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[13].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[13]);
+
             }
             if (ArvatavSõna.charAt(14) == pakkumine) {
-                String pakutav = Arrays.toString(pakutavSõna);
-                String uusSõna = pakutav.substring(0, 14) + pakkumine + pakutav.substring(15);
-                Text[] ajutine = new Text[]{new Text(uusSõna)};
-                pakutavSõna = ajutine;
-                pakutavSõna[14] = new Text(String.valueOf(pakkumine));
+                pakutavSõna[14].setVisible(true);
+                arvamisJoonteChildren.add(pakutavSõna[14]);
+
             }
             //TODO: Uuenda seda joonte peal olevat sõna, et tähti oleks näha
 
