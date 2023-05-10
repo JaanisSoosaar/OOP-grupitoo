@@ -177,8 +177,10 @@ public class graf3 extends Application {
         paremPoolsedAsjad.add(new Label("Valesid pakkumisi jäänud: "), 0, 2);
         arvamisiAllesLabel = new Label(String.valueOf(arvamisiAlles));
         paremPoolsedAsjad.add(arvamisiAllesLabel, 0, 3);
+        
         paremPoolsedAsjad.add(button2, 0, 13);
         paremPoolsedAsjad.setPadding(new Insets(20,0,0,0));
+        
         borderPane.setRight(paremPoolsedAsjad);
         paremPoolsedAsjad.setAlignment(Pos.CENTER);
 
