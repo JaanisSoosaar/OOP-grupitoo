@@ -76,7 +76,6 @@ public class graafilineMäng extends Application {
 
             try {
                 mänguRestart();
-                System.out.println("alustan mängu");
             } catch (Exception ex) {
                 System.out.println("Midagi on katki");
                 System.exit(0); // Kui tekib error (katsetamiseks), siis sulgen lihtsalt mängu.
@@ -107,7 +106,6 @@ public class graafilineMäng extends Application {
 
         mängStseen = new Scene(borderPane, 1000, 650);
 
-        
         StackPane stackPane2 = new StackPane();
 
         Button tagasiminekuNupp = new Button("Lõpeta mäng");
@@ -122,15 +120,10 @@ public class graafilineMäng extends Application {
 
         list.add(tagasiminekuNupp);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-        // Ettevalmistus
-
         Pane poomisPuu = new Pane();
 
         // Salvestan childreni, et seda kergesti kätte saada
         poomisPuuChildren = poomisPuu.getChildren();
-
 
         // Sätin paika tagasiside textfieldi
         tagasiside.setFont(new Font(20));
@@ -140,7 +133,6 @@ public class graafilineMäng extends Application {
         tagasiside.setVisible(true);
         borderPane.setTop(tagasiside);
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Parempoolne ekraani osa
         GridPane paremPoolsedAsjad = new GridPane();
@@ -174,9 +166,6 @@ public class graafilineMäng extends Application {
         täheSisestusField.setOnAction(e -> alustaMänguga());
 
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //Muud asjad
-
         peaLava.setTitle("Poomismäng");
         peaLava.setScene(avalehtStseen);
         peaLava.show();
@@ -197,8 +186,9 @@ public class graafilineMäng extends Application {
             ArvatavSõna = getWord();
             ArvatavSõna = ArvatavSõna.toLowerCase();
 
-            // Sätin paika arvamise korrad, enne kui kaotatakse
+            // Sätin paika arvamise korrad, enne kui kaotatakse ja kõik muu nö "default" väärtusteks.
             arvamisiAlles = 10;
+            arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
 
             indeks = 0;
 
@@ -208,16 +198,13 @@ public class graafilineMäng extends Application {
 
             arvatudTähedField.setText("");
 
-            arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
-
             tagasiside.setText("");
 
-            //täheSisestusField.setEditable(true);
-
+            // Sätin paika arvamise jooned ning nende peal olevad tähed.
             graafika.arvamiseJooned(ArvatavSõna);
             graafika.paigutaTekst(ArvatavSõna);
 
-            // Joonistan poomispuu
+            // Joonistan poomispuu.
             graafika.joonistaPoomine();
 
             System.out.println(ArvatavSõna);
@@ -242,7 +229,7 @@ public class graafilineMäng extends Application {
             }
         }catch (IndexOutOfBoundsException ignored) {}
 
-        // Genereerin juhuslikult uue arvatava sõna
+        // Genereerin juhuslikult uue arvatava sõna.
         ArvatavSõna = getWord();
         ArvatavSõna = ArvatavSõna.toLowerCase();
 
@@ -250,7 +237,7 @@ public class graafilineMäng extends Application {
         arvamisJoonteChildren.removeAll();
         borderPane.getChildren().remove(borderPane.getBottom());
 
-        // Lisan uue mängu sõna arvamis jooned.
+        // Lisan uue mängu sõna arvamis jooned ja nende peal olevad tähed.
         Pane sõnaJooned = new Pane();
 
         arvamisJoonteChildren = sõnaJooned.getChildren();
@@ -261,15 +248,16 @@ public class graafilineMäng extends Application {
         graafika.arvamiseJooned(ArvatavSõna);
         graafika.paigutaTekst(ArvatavSõna);
 
-        // Sätin paika arvamise korrad, enne kui kaotatakse
+        // Sätin paika arvamise korrad, enne kui kaotatakse ja muude elementide nö "default" väärtused.
         arvamisiAlles = 10;
+        arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
 
         indeks = 0;
+
         arvatudTähtedeArv = 0;
 
         täheSisestusField.setText("");
         arvatudTähedField.setText("");
-        arvamisiAllesLabel.setText(String.valueOf(arvamisiAlles));
         tagasiside.setText("");
 
         // Lasen mängijal uuesti pakkumisi teha.
@@ -293,6 +281,7 @@ public class graafilineMäng extends Application {
         return words.get(new Random().nextInt(words.size()));
     }
 
+    // Meetod, mis kontrollib mängija sisestust ja teeb vajalikud muudatused.
     private void alustaMänguga() {
 
 

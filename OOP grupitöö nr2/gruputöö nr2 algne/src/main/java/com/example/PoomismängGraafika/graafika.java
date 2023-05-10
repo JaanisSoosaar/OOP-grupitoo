@@ -3,15 +3,12 @@ package com.example.PoomismängGraafika;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-
 public class graafika extends graafilineMäng{
 
-
+    // Meetod, mis defineerib ära poomispuu ja selle osad.
     static void joonistaPoomine() {
 
         Line puu1 = new Line(300, 400, 25, 400);
@@ -87,14 +84,16 @@ public class graafika extends graafilineMäng{
 
     }
 
+    // Meetod, mis sätib paika arvamise jooned.
     static void arvamiseJooned(String sõna) {
         Line[] jooned = new Line[sõna.length()];
         int joonePikkus = 25;
         int jooneVahe = 35;
+        // xAlgus on joonte algus koordinaat.
         int xAlgus = (int) mängStseen.getWidth() / 2 - jooneVahe * (sõna.length() / 2);
 
         for (int i = 0; i < jooned.length; i++) {
-            // Arvutan iga joone alguspunkti.
+            // Arvutan iga joone alguspunkti ja lisan selle lauale.
             int xkoordinaat = xAlgus + (jooneVahe * i);
 
             jooned[i] = new Line(xkoordinaat, 230, xkoordinaat - joonePikkus, 230);
@@ -104,14 +103,16 @@ public class graafika extends graafilineMäng{
         }
     }
 
+    // Meetod, mis sätib paika pakutava sõna tähed arvamise joonte kohale.
     static Text[] paigutaTekst(String sõna) {
         pakutavSõna = new Text[sõna.length()];
         int jooneVahe = 35;
         int joonePikkus = 25;
+        // xAlgus on tähtede algus koordinaat.
         int xAlgus = (int) mängStseen.getWidth() / 2 - jooneVahe * (sõna.length() / 2) - joonePikkus / 2 - 10;
 
         for (int i = 0; i < pakutavSõna.length; i++) {
-            // Arvutan iga joone alguspunkti.
+            // Arvutan iga tähe alguspunkti ja lisan selle lauale peidetult.
             int xkoordinaat = xAlgus + (jooneVahe * i);
             pakutavSõna[i] = new Text(sõna.substring(i, i + 1));
             pakutavSõna[i].setFont(new Font(30));
