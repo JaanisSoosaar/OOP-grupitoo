@@ -60,7 +60,7 @@ public class graafilineMäng extends Application {
 
 
     @Override
-    public void start(Stage peaLava) throws IOException {
+    public void start(Stage peaLava) {
         // avalehtStseen/Stseen 1
 
         StackPane avaleheStackpane = new StackPane();
@@ -283,7 +283,10 @@ public class graafilineMäng extends Application {
 
     // Meetod, mis kontrollib mängija sisestust ja teeb vajalikud muudatused.
     private void alustaMänguga() {
-
+        if(arvatudTähtedeArv == ArvatavSõna.length()){
+            tagasiside.setText("Arvasid sõna ära! See sõna oli: " + ArvatavSõna);
+            täheSisestusField.setEditable(false);
+        }
 
         String pakkumineString = täheSisestusField.getText();
 
